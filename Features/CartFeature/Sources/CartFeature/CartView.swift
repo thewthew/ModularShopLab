@@ -22,17 +22,17 @@ public struct CartView: View {
             Group {
                 if viewModel.items.isEmpty {
                     ContentUnavailableView(
-                        "Cart is empty",
+                        L10n.string("cart.emptyTitle"),
                         systemImage: "cart",
-                        description: Text("Products you add appear here.")
+                        description: Text(L10n.string("cart.emptyDescription"))
                     )
                 } else {
                     List {
-                        Section("Client") {
+                        Section(L10n.string("cart.client")) {
                             if let selectedClientName {
                                 Label(selectedClientName, systemImage: "person.fill")
                             } else {
-                                Label("Select a client before checkout", systemImage: "person.crop.circle.badge.exclamationmark")
+                                Label(L10n.string("cart.selectClientBeforeCheckout"), systemImage: "person.crop.circle.badge.exclamationmark")
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -42,7 +42,7 @@ public struct CartView: View {
                                 VStack(alignment: .leading, spacing: ShopSpacing.xSmall) {
                                     Text(item.product.title)
                                         .font(.headline)
-                                    Text("Quantity: \(item.quantity)")
+                                    Text(L10n.string("cart.quantity", item.quantity))
                                         .font(.subheadline)
                                         .foregroundStyle(.secondary)
                                 }
@@ -63,7 +63,7 @@ public struct CartView: View {
 
                         Section {
                             HStack {
-                                Text("Total")
+                                Text(L10n.string("cart.total"))
                                     .font(.headline)
                                 Spacer()
                                 Text(viewModel.total.formatted(.currency(code: "USD")))
@@ -73,14 +73,14 @@ public struct CartView: View {
                             Button {
                                 onCheckout(viewModel.items, viewModel.total)
                             } label: {
-                                Label("Checkout", systemImage: "creditcard")
+                                Label(L10n.string("cart.checkout"), systemImage: "creditcard")
                             }
                             .disabled(viewModel.items.isEmpty || selectedClientName == nil)
                         }
                     }
                 }
             }
-            .navigationTitle("Cart")
+            .navigationTitle(L10n.string("cart.navigationTitle"))
         }
         .task {
             await viewModel.loadCart()

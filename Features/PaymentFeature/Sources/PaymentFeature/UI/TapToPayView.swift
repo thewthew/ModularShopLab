@@ -11,9 +11,9 @@ public struct TapToPayView: View {
     public var body: some View {
         NavigationStack {
             Form {
-                Section("Order") {
+                Section(L10n.string("payment.order")) {
                     HStack {
-                        Text("Total")
+                        Text(L10n.string("payment.total"))
                             .font(.headline)
                         Spacer()
                         Text(viewModel.formattedAmount)
@@ -24,7 +24,7 @@ public struct TapToPayView: View {
                         HStack(alignment: .top) {
                             VStack(alignment: .leading) {
                                 Text(item.title)
-                                Text("Quantity: \(item.quantity)")
+                                Text(L10n.string("payment.quantity", item.quantity))
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
@@ -36,7 +36,7 @@ public struct TapToPayView: View {
                     }
                 }
 
-                Section("Tap to Pay") {
+                Section(L10n.string("payment.tapToPay")) {
                     if let resultMessage = viewModel.resultMessage {
                         Text(resultMessage)
                             .foregroundStyle(.secondary)
@@ -47,14 +47,14 @@ public struct TapToPayView: View {
                             .foregroundStyle(.red)
                     }
 
-                    PrimaryButton("Start payment", isLoading: viewModel.isLoading) {
+                    PrimaryButton(L10n.string("payment.startPayment"), isLoading: viewModel.isLoading) {
                         Task {
                             await viewModel.startPayment()
                         }
                     }
                 }
             }
-            .navigationTitle("Payment")
+            .navigationTitle(L10n.string("payment.navigationTitle"))
         }
     }
 }

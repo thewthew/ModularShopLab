@@ -43,18 +43,18 @@ public final class ClientFormViewModel {
     public var title: String {
         switch mode {
         case .create:
-            "Create client"
+            L10n.string("client.createClient")
         case .update:
-            "Update client"
+            L10n.string("client.updateClient")
         }
     }
 
     public var submitTitle: String {
         switch mode {
         case .create:
-            "Create"
+            L10n.string("client.create")
         case .update:
-            "Save"
+            L10n.string("client.save")
         }
     }
 
@@ -78,10 +78,10 @@ public final class ClientFormViewModel {
                 )
             )
         } catch ClientError.emptyRequiredFields {
-            errorMessage = "First name, last name and email are required."
+            errorMessage = L10n.string("client.error.requiredFields")
             return nil
         } catch {
-            errorMessage = "Unable to save client."
+            errorMessage = L10n.string("client.error.saveFailed")
             return nil
         }
     }

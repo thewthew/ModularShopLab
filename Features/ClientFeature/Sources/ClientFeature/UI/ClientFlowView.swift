@@ -2,17 +2,20 @@ import SwiftUI
 
 public struct ClientFlowView: View {
     @State private var coordinator: ClientFlowCoordinator
+    private let canStartSale: Bool
     private let onClientSelected: @MainActor @Sendable (Client) -> Void
     private let onStartSale: @MainActor @Sendable (Client) -> Void
     private let onClose: @MainActor @Sendable () -> Void
 
     public init(
         coordinator: ClientFlowCoordinator,
+        canStartSale: Bool = true,
         onClientSelected: @escaping @MainActor @Sendable (Client) -> Void,
         onStartSale: @escaping @MainActor @Sendable (Client) -> Void,
         onClose: @escaping @MainActor @Sendable () -> Void
     ) {
         _coordinator = State(initialValue: coordinator)
+        self.canStartSale = canStartSale
         self.onClientSelected = onClientSelected
         self.onStartSale = onStartSale
         self.onClose = onClose
@@ -31,7 +34,7 @@ public struct ClientFlowView: View {
             )
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") {
+                    Button(L10n.string("client.close")) {
                         coordinator.cancel()
                         onClose()
                     }
@@ -42,6 +45,7 @@ public struct ClientFlowView: View {
                 case let .detail(client):
                     ClientDetailView(
                         state: ClientDetailViewState(client: client),
+                        canStartSale: canStartSale,
                         onSelectClient: {
                             onClientSelected(client)
                         },

@@ -16,7 +16,7 @@ public final class ForgotPasswordViewModel {
 
     public func requestPasswordReset() async {
         guard !usernameOrEmail.isEmpty else {
-            errorMessage = "Username or email is required."
+            errorMessage = L10n.string("auth.error.usernameOrEmailRequired")
             return
         }
 
@@ -32,9 +32,9 @@ public final class ForgotPasswordViewModel {
             try await repository.requestPasswordReset(
                 PasswordResetRequest(usernameOrEmail: usernameOrEmail)
             )
-            message = "If the account exists, reset instructions will be sent."
+            message = L10n.string("auth.passwordResetRequested")
         } catch {
-            errorMessage = "Unable to request a password reset."
+            errorMessage = L10n.string("auth.error.passwordResetFailed")
         }
     }
 }

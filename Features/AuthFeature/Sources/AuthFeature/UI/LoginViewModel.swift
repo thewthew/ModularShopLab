@@ -16,7 +16,7 @@ public final class LoginViewModel {
 
     public func login() async -> UserSession? {
         guard !username.isEmpty, !password.isEmpty else {
-            errorMessage = "Username and password are required."
+            errorMessage = L10n.string("auth.error.credentialsRequired")
             return nil
         }
 
@@ -32,7 +32,7 @@ public final class LoginViewModel {
                 credentials: LoginCredentials(username: username, password: password)
             )
         } catch {
-            errorMessage = "Login failed. Check your credentials."
+            errorMessage = L10n.string("auth.error.loginFailed")
             return nil
         }
     }

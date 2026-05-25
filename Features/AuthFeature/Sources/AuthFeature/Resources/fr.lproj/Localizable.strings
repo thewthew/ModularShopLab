@@ -1,0 +1,16 @@
+"auth.mode" = "Mode";
+"auth.login" = "Connexion";
+"auth.createAccount" = "Créer un compte";
+"auth.reset" = "Réinitialiser";
+"auth.navigationTitle" = "Modular Shop";
+"auth.username" = "Nom d’utilisateur";
+"auth.password" = "Mot de passe";
+"auth.forgotPassword" = "Mot de passe oublié";
+"auth.usernameOrEmail" = "Nom d’utilisateur ou email";
+"auth.requestReset" = "Demander la réinitialisation";
+"auth.error.credentialsRequired" = "Le nom d’utilisateur et le mot de passe sont obligatoires.";
+"auth.error.loginFailed" = "Connexion impossible. Vérifie tes identifiants.";
+"auth.error.accountCreationFailed" = "La création du compte a échoué.";
+"auth.error.usernameOrEmailRequired" = "Le nom d’utilisateur ou l’email est obligatoire.";
+"auth.passwordResetRequested" = "Si le compte existe, les instructions de réinitialisation seront envoyées.";
+"auth.error.passwordResetFailed" = "Impossible de demander une réinitialisation du mot de passe.";

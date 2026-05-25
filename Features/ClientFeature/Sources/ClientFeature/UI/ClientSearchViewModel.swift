@@ -39,7 +39,7 @@ public final class ClientSearchViewModel {
         } catch {
             clients = []
             clientRows = []
-            errorMessage = "Unable to find clients."
+            errorMessage = L10n.string("client.error.searchFailed")
         }
     }
 

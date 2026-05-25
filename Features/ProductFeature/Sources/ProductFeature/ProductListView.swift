@@ -38,7 +38,7 @@ public struct ProductListView: View {
         NavigationStack {
             Group {
                 if viewModel.isLoading && viewModel.products.isEmpty {
-                    LoadingView("Loading products...")
+                    LoadingView(L10n.string("products.loading"))
                 } else if let errorMessage = viewModel.errorMessage, viewModel.products.isEmpty {
                     ErrorStateView(message: errorMessage) {
                         Task {
@@ -63,7 +63,7 @@ public struct ProductListView: View {
                                 title: product.title,
                                 price: product.price.formatted(.currency(code: "USD")),
                                 description: product.description,
-                                actionTitle: onAddToCart == nil ? nil : "Add",
+                                actionTitle: onAddToCart == nil ? nil : L10n.string("products.add"),
                                 action: addAction(for: product)
                             )
                             .swipeActions(edge: .leading) {
@@ -72,7 +72,7 @@ public struct ProductListView: View {
                                         onToggleFavorite(product)
                                     } label: {
                                         Label(
-                                            isFavorite(product) ? "Remove favorite" : "Favorite",
+                                            isFavorite(product) ? L10n.string("products.removeFavorite") : L10n.string("products.favorite"),
                                             systemImage: isFavorite(product) ? "heart.slash" : "heart"
                                         )
                                     }
@@ -86,7 +86,7 @@ public struct ProductListView: View {
                     }
                 }
             }
-            .navigationTitle("Products")
+            .navigationTitle(L10n.string("products.navigationTitle"))
         }
         .modifier(
             ProductSearchModifier(
@@ -126,7 +126,7 @@ private struct ProductSearchModifier: ViewModifier {
     func body(content: Content) -> some View {
         if isEnabled {
             content
-                .searchable(text: $searchQuery, prompt: "Search products")
+                .searchable(text: $searchQuery, prompt: Text(L10n.string("products.searchPrompt")))
                 .onSubmit(of: .search, onSearch)
                 .onChange(of: searchQuery) { _, newValue in
                     if newValue.isEmpty {

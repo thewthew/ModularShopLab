@@ -41,7 +41,7 @@ public struct HomeView: View {
         NavigationStack {
             Form {
                 Section {
-                    Text("Bonjour \(sellerName)")
+                    Text(L10n.string("home.greeting", sellerName))
                         .font(.title2.weight(.semibold))
 
                     if !employeeRole.isEmpty {
@@ -52,12 +52,12 @@ public struct HomeView: View {
                     Button(role: .destructive) {
                         onLogout()
                     } label: {
-                        Label("Log out", systemImage: "rectangle.portrait.and.arrow.right")
+                        Label(L10n.string("home.logout"), systemImage: "rectangle.portrait.and.arrow.right")
                     }
                 }
 
                 if !storeName.isEmpty {
-                    Section("Store") {
+                    Section(L10n.string("home.store")) {
                         Label(storeName, systemImage: "storefront")
 
                         if !storeCode.isEmpty {
@@ -67,49 +67,49 @@ public struct HomeView: View {
                     }
                 }
 
-                Section("Sale") {
+                Section(L10n.string("home.sale")) {
                     if let selectedClientName {
                         Label(selectedClientName, systemImage: "person.fill")
                     } else {
-                        Label("No client selected", systemImage: "person")
+                        Label(L10n.string("home.noClientSelected"), systemImage: "person")
                             .foregroundStyle(.secondary)
                     }
 
                     Button {
                         onStartSale()
                     } label: {
-                        Label("Start sale", systemImage: "cart.badge.plus")
+                        Label(L10n.string("home.startSale"), systemImage: "cart.badge.plus")
                     }
                     .disabled(!canStartSale)
                 }
 
-                Section("Client") {
+                Section(L10n.string("home.client")) {
                     Button {
                         onCreateClient()
                     } label: {
-                        Label("Create client", systemImage: "person.badge.plus")
+                        Label(L10n.string("home.createClient"), systemImage: "person.badge.plus")
                     }
                 }
 
-                Section("Tips") {
+                Section(L10n.string("home.tips")) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Label("Learn a new language", systemImage: "lightbulb")
+                        Label(L10n.string("home.learnLanguage"), systemImage: "lightbulb")
                             .font(.headline)
 
-                        Text("Open a short web guide with practical tips for language learning.")
+                        Text(L10n.string("home.tipsDescription"))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
 
                         Button {
                             onOpenTips()
                         } label: {
-                            Label("Open tips", systemImage: "safari")
+                            Label(L10n.string("home.openTips"), systemImage: "safari")
                         }
                     }
                     .padding(.vertical, 4)
                 }
             }
-            .navigationTitle("Home")
+            .navigationTitle(L10n.string("home.navigationTitle"))
         }
     }
 }

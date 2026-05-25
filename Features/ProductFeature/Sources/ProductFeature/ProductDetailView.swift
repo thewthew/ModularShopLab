@@ -63,11 +63,11 @@ public struct ProductDetailView: View {
             }
 
             if onStartSale != nil || onSelectClient != nil {
-                Section("Sale") {
+                Section(L10n.string("products.sale")) {
                     if let selectedClientName {
                         Label(selectedClientName, systemImage: "person.fill")
                     } else {
-                        Label("No client selected", systemImage: "person")
+                        Label(L10n.string("products.noClientSelected"), systemImage: "person")
                             .foregroundStyle(.secondary)
                     }
 
@@ -75,7 +75,7 @@ public struct ProductDetailView: View {
                         Button {
                             onSelectClient()
                         } label: {
-                            Label("Select or create client", systemImage: "person.badge.plus")
+                            Label(L10n.string("products.selectOrCreateClient"), systemImage: "person.badge.plus")
                         }
                     }
 
@@ -83,7 +83,7 @@ public struct ProductDetailView: View {
                         Button {
                             onStartSale(product)
                         } label: {
-                            Label("Start sale", systemImage: "cart.badge.plus")
+                            Label(L10n.string("products.startSale"), systemImage: "cart.badge.plus")
                         }
                     }
                 }
@@ -95,13 +95,13 @@ public struct ProductDetailView: View {
                         onToggleFavorite(product)
                     } label: {
                         Label(
-                            isFavorite(product) ? "Remove favorite" : "Add favorite",
+                            isFavorite(product) ? L10n.string("products.removeFavorite") : L10n.string("products.addFavorite"),
                             systemImage: isFavorite(product) ? "heart.slash" : "heart"
                         )
                     }
                 }
             }
         }
-        .navigationTitle("Product")
+        .navigationTitle(L10n.string("products.detailNavigationTitle"))
     }
 }

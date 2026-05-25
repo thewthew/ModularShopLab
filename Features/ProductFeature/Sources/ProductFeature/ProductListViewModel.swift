@@ -35,7 +35,7 @@ public final class ProductListViewModel {
             }
         } catch {
             products = []
-            errorMessage = "Unable to load products."
+            errorMessage = L10n.string("products.error.loadFailed")
         }
     }
 

@@ -47,7 +47,7 @@ public final class TapToPayViewModel {
 
     public func startPayment() async {
         guard request.amount > 0 else {
-            errorMessage = "Cart total must be greater than zero."
+            errorMessage = L10n.string("payment.error.invalidAmount")
             await logPaymentFailure(reason: "invalid_amount")
             return
         }
@@ -66,13 +66,13 @@ public final class TapToPayViewModel {
             resultMessage = message(for: result)
             await logPaymentResult(result)
         } catch PaymentError.invalidAmount {
-            errorMessage = "Cart total must be greater than zero."
+            errorMessage = L10n.string("payment.error.invalidAmount")
             await logPaymentFailure(reason: "invalid_amount")
         } catch CheckoutPreparationError.emptyCart {
-            errorMessage = "Cart must contain at least one product."
+            errorMessage = L10n.string("payment.error.emptyCart")
             await logPaymentFailure(reason: "empty_cart")
         } catch {
-            errorMessage = "Payment failed."
+            errorMessage = L10n.string("payment.error.failed")
             await logPaymentFailure(reason: String(describing: error))
         }
     }
@@ -80,9 +80,9 @@ public final class TapToPayViewModel {
     private func message(for result: PaymentResult) -> String {
         switch result.status {
         case .approved:
-            "Payment approved: \(result.transactionID)"
+            L10n.string("payment.approved", result.transactionID)
         case let .declined(reason):
-            "Payment declined: \(reason)"
+            L10n.string("payment.declined", reason)
         }
     }
 

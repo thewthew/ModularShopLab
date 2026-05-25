@@ -19,9 +19,9 @@ public struct FavoritesView: View {
             Group {
                 if viewModel.products.isEmpty {
                     ContentUnavailableView(
-                        "No favorites",
+                        L10n.string("favorites.emptyTitle"),
                         systemImage: "heart",
-                        description: Text("Favorite products appear here.")
+                        description: Text(L10n.string("favorites.emptyDescription"))
                     )
                 } else {
                     List(viewModel.products) { product in
@@ -30,7 +30,7 @@ public struct FavoritesView: View {
                             title: product.title,
                             price: product.price.formatted(.currency(code: "USD")),
                             description: product.description,
-                            actionTitle: onAddToCart == nil ? nil : "Add",
+                            actionTitle: onAddToCart == nil ? nil : L10n.string("favorites.add"),
                             action: addAction(for: product)
                         )
                         .swipeActions {
@@ -39,13 +39,13 @@ public struct FavoritesView: View {
                                     await viewModel.toggle(product: product)
                                 }
                             } label: {
-                                Label("Remove", systemImage: "heart.slash")
+                                Label(L10n.string("favorites.remove"), systemImage: "heart.slash")
                             }
                         }
                     }
                 }
             }
-            .navigationTitle("Favorites")
+            .navigationTitle(L10n.string("favorites.navigationTitle"))
         }
         .task {
             await viewModel.loadFavorites()

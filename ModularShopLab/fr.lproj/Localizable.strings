@@ -1,0 +1,7 @@
+"navigation.home" = "Accueil";
+"navigation.products" = "Produits";
+"navigation.favorites" = "Favoris";
+"navigation.clients" = "Clients";
+"navigation.cart" = "Panier";
+"navigation.favoritesUnavailable" = "Favoris indisponibles";
+"navigation.clientsUnavailable" = "Clients indisponibles";

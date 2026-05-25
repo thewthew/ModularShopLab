@@ -1,0 +1,11 @@
+"payment.order" = "Commande";
+"payment.total" = "Total";
+"payment.quantity" = "Quantité : %d";
+"payment.tapToPay" = "Tap to Pay";
+"payment.startPayment" = "Démarrer le paiement";
+"payment.navigationTitle" = "Paiement";
+"payment.error.invalidAmount" = "Le total du panier doit être supérieur à zéro.";
+"payment.error.emptyCart" = "Le panier doit contenir au moins un produit.";
+"payment.error.failed" = "Le paiement a échoué.";
+"payment.approved" = "Paiement approuvé : %@";
+"payment.declined" = "Paiement refusé : %@";

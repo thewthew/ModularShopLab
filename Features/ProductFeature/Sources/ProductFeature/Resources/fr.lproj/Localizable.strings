@@ -1,0 +1,13 @@
+"products.loading" = "Chargement des produits...";
+"products.add" = "Ajouter";
+"products.favorite" = "Favori";
+"products.addFavorite" = "Ajouter aux favoris";
+"products.removeFavorite" = "Retirer des favoris";
+"products.navigationTitle" = "Produits";
+"products.searchPrompt" = "Rechercher des produits";
+"products.sale" = "Vente";
+"products.noClientSelected" = "Aucun client sélectionné";
+"products.selectOrCreateClient" = "Sélectionner ou créer un client";
+"products.startSale" = "Démarrer la vente";
+"products.detailNavigationTitle" = "Produit";
+"products.error.loadFailed" = "Impossible de charger les produits.";

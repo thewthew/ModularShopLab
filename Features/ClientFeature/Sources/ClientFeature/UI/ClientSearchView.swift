@@ -19,9 +19,9 @@ public struct ClientSearchView: View {
     public var body: some View {
         Form {
             Section {
-                TextField("Name or email", text: $viewModel.searchQuery)
+                TextField(L10n.string("client.nameOrEmail"), text: $viewModel.searchQuery)
 
-                PrimaryButton("Search", isLoading: viewModel.isLoading) {
+                PrimaryButton(L10n.string("client.search"), isLoading: viewModel.isLoading) {
                     Task {
                         await viewModel.search()
                     }
@@ -30,10 +30,10 @@ public struct ClientSearchView: View {
                 Button {
                     onCreateClient()
                 } label: {
-                    Label("Create client", systemImage: "person.badge.plus")
+                    Label(L10n.string("client.createClient"), systemImage: "person.badge.plus")
                 }
             } header: {
-                Text("Find client")
+                Text(L10n.string("client.findClient"))
             }
 
             if let errorMessage = viewModel.errorMessage {
@@ -43,9 +43,9 @@ public struct ClientSearchView: View {
                 }
             }
 
-            Section("Results") {
+            Section(L10n.string("client.results")) {
                 if viewModel.clientRows.isEmpty {
-                    Text("No clients found")
+                    Text(L10n.string("client.noClientsFound"))
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(viewModel.clientRows) { row in
@@ -61,7 +61,7 @@ public struct ClientSearchView: View {
                 }
             }
         }
-        .navigationTitle("Clients")
+        .navigationTitle(L10n.string("client.navigationTitle"))
         .onChange(of: viewModel.searchQuery) { _, newValue in
             if newValue.isEmpty {
                 viewModel.cancel()

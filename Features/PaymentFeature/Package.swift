@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "PaymentFeature",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v18),
         .macOS(.v14)
@@ -23,6 +24,9 @@ let package = Package(
                 "DesignSystem",
                 "Networking",
                 "Observability"
+            ],
+            resources: [
+                .process("Resources")
             ],
             swiftSettings: [
                 .enableUpcomingFeature("MemberImportVisibility")

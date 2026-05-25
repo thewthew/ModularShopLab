@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "AuthFeature",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v18),
         .macOS(.v14)
@@ -21,6 +22,9 @@ let package = Package(
             dependencies: [
                 "DesignSystem",
                 "Networking"
+            ],
+            resources: [
+                .process("Resources")
             ],
             swiftSettings: [
                 .enableUpcomingFeature("MemberImportVisibility")

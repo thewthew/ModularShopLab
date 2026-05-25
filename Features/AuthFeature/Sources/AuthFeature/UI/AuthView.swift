@@ -27,11 +27,11 @@ public struct AuthView: View {
     public var body: some View {
         NavigationStack {
             Form {
-                Picker("Mode", selection: $mode) {
-                    Text("Login").tag(AuthMode.login)
-                    Text("Create account").tag(AuthMode.register)
+                Picker(L10n.string("auth.mode"), selection: $mode) {
+                    Text(L10n.string("auth.login")).tag(AuthMode.login)
+                    Text(L10n.string("auth.createAccount")).tag(AuthMode.register)
                     if allowsPasswordReset {
-                        Text("Reset").tag(AuthMode.forgotPassword)
+                        Text(L10n.string("auth.reset")).tag(AuthMode.forgotPassword)
                     }
                 }
                 .pickerStyle(.segmented)
@@ -52,7 +52,7 @@ public struct AuthView: View {
                     ForgotPasswordForm(viewModel: forgotPasswordViewModel)
                 }
             }
-            .navigationTitle("Modular Shop")
+            .navigationTitle(L10n.string("auth.navigationTitle"))
         }
     }
 }
@@ -68,17 +68,17 @@ private struct LoginForm: View {
     let onAuthenticated: @MainActor (UserSession) -> Void
 
     var body: some View {
-        Section("Login") {
-            TextField("Username", text: $viewModel.username)
+        Section(L10n.string("auth.login")) {
+            TextField(L10n.string("auth.username"), text: $viewModel.username)
                 .autocorrectionDisabled()
-            SecureField("Password", text: $viewModel.password)
+            SecureField(L10n.string("auth.password"), text: $viewModel.password)
 
             if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
             }
 
-            PrimaryButton("Login", isLoading: viewModel.isLoading) {
+            PrimaryButton(L10n.string("auth.login"), isLoading: viewModel.isLoading) {
                 Task {
                     if let session = await viewModel.login() {
                         onAuthenticated(session)
@@ -93,8 +93,8 @@ private struct ForgotPasswordForm: View {
     @Bindable var viewModel: ForgotPasswordViewModel
 
     var body: some View {
-        Section("Forgot password") {
-            TextField("Username or email", text: $viewModel.usernameOrEmail)
+        Section(L10n.string("auth.forgotPassword")) {
+            TextField(L10n.string("auth.usernameOrEmail"), text: $viewModel.usernameOrEmail)
                 .autocorrectionDisabled()
 
             if let message = viewModel.message {
@@ -107,7 +107,7 @@ private struct ForgotPasswordForm: View {
                     .foregroundStyle(.red)
             }
 
-            PrimaryButton("Request reset", isLoading: viewModel.isLoading) {
+            PrimaryButton(L10n.string("auth.requestReset"), isLoading: viewModel.isLoading) {
                 Task {
                     await viewModel.requestPasswordReset()
                 }
@@ -121,17 +121,17 @@ private struct RegisterForm: View {
     let onAuthenticated: @MainActor (UserSession) -> Void
 
     var body: some View {
-        Section("Create account") {
-            TextField("Username", text: $viewModel.username)
+        Section(L10n.string("auth.createAccount")) {
+            TextField(L10n.string("auth.username"), text: $viewModel.username)
                 .autocorrectionDisabled()
-            SecureField("Password", text: $viewModel.password)
+            SecureField(L10n.string("auth.password"), text: $viewModel.password)
 
             if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
             }
 
-            PrimaryButton("Create account", isLoading: viewModel.isLoading) {
+            PrimaryButton(L10n.string("auth.createAccount"), isLoading: viewModel.isLoading) {
                 Task {
                     if let session = await viewModel.register() {
                         onAuthenticated(session)

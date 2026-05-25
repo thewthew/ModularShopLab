@@ -1,0 +1,8 @@
+"cart.emptyTitle" = "Cart is empty";
+"cart.emptyDescription" = "Products you add appear here.";
+"cart.client" = "Client";
+"cart.selectClientBeforeCheckout" = "Select a client before checkout";
+"cart.quantity" = "Quantity: %d";
+"cart.total" = "Total";
+"cart.checkout" = "Checkout";
+"cart.navigationTitle" = "Cart";

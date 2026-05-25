@@ -1,0 +1,8 @@
+"cart.emptyTitle" = "Le panier est vide";
+"cart.emptyDescription" = "Les produits ajoutés apparaîtront ici.";
+"cart.client" = "Client";
+"cart.selectClientBeforeCheckout" = "Sélectionne un client avant le paiement";
+"cart.quantity" = "Quantité : %d";
+"cart.total" = "Total";
+"cart.checkout" = "Paiement";
+"cart.navigationTitle" = "Panier";

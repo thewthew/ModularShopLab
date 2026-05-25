@@ -16,7 +16,7 @@ public final class RegisterViewModel {
 
     public func register() async -> UserSession? {
         guard !username.isEmpty, !password.isEmpty else {
-            errorMessage = "Username and password are required."
+            errorMessage = L10n.string("auth.error.credentialsRequired")
             return nil
         }
 
@@ -32,7 +32,7 @@ public final class RegisterViewModel {
                 credentials: RegisterCredentials(username: username, password: password)
             )
         } catch {
-            errorMessage = "Account creation failed."
+            errorMessage = L10n.string("auth.error.accountCreationFailed")
             return nil
         }
     }

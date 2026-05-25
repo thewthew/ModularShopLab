@@ -1,0 +1,11 @@
+"payment.order" = "Order";
+"payment.total" = "Total";
+"payment.quantity" = "Quantity: %d";
+"payment.tapToPay" = "Tap to Pay";
+"payment.startPayment" = "Start payment";
+"payment.navigationTitle" = "Payment";
+"payment.error.invalidAmount" = "Cart total must be greater than zero.";
+"payment.error.emptyCart" = "Cart must contain at least one product.";
+"payment.error.failed" = "Payment failed.";
+"payment.approved" = "Payment approved: %@";
+"payment.declined" = "Payment declined: %@";

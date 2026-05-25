@@ -1,0 +1,16 @@
+"auth.mode" = "Mode";
+"auth.login" = "Login";
+"auth.createAccount" = "Create account";
+"auth.reset" = "Reset";
+"auth.navigationTitle" = "Modular Shop";
+"auth.username" = "Username";
+"auth.password" = "Password";
+"auth.forgotPassword" = "Forgot password";
+"auth.usernameOrEmail" = "Username or email";
+"auth.requestReset" = "Request reset";
+"auth.error.credentialsRequired" = "Username and password are required.";
+"auth.error.loginFailed" = "Login failed. Check your credentials.";
+"auth.error.accountCreationFailed" = "Account creation failed.";
+"auth.error.usernameOrEmailRequired" = "Username or email is required.";
+"auth.passwordResetRequested" = "If the account exists, reset instructions will be sent.";
+"auth.error.passwordResetFailed" = "Unable to request a password reset.";

@@ -1,0 +1,13 @@
+"home.greeting" = "Hello %@";
+"home.logout" = "Log out";
+"home.store" = "Store";
+"home.sale" = "Sale";
+"home.noClientSelected" = "No client selected";
+"home.startSale" = "Start sale";
+"home.client" = "Client";
+"home.createClient" = "Create client";
+"home.tips" = "Tips";
+"home.learnLanguage" = "Learn a new language";
+"home.tipsDescription" = "Open a short web guide with practical tips for language learning.";
+"home.openTips" = "Open tips";
+"home.navigationTitle" = "Home";

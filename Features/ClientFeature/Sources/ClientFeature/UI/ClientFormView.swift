@@ -15,17 +15,17 @@ public struct ClientFormView: View {
 
     public var body: some View {
         Form {
-            Section("Identity") {
-                TextField("First name", text: $viewModel.firstName)
-                TextField("Last name", text: $viewModel.lastName)
-                TextField("Email", text: $viewModel.email)
-                TextField("Phone", text: $viewModel.phone)
+            Section(L10n.string("client.identity")) {
+                TextField(L10n.string("client.firstName"), text: $viewModel.firstName)
+                TextField(L10n.string("client.lastName"), text: $viewModel.lastName)
+                TextField(L10n.string("client.email"), text: $viewModel.email)
+                TextField(L10n.string("client.phone"), text: $viewModel.phone)
             }
 
-            Section("Origin") {
-                Picker("Country", selection: $viewModel.country) {
+            Section(L10n.string("client.origin")) {
+                Picker(L10n.string("client.country"), selection: $viewModel.country) {
                     ForEach(ClientCountry.allCases) { country in
-                        Text(country.rawValue)
+                        Text(country.localizedName)
                             .tag(country)
                     }
                 }
