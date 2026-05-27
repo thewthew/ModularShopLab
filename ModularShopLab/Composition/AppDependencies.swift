@@ -10,6 +10,7 @@ import Observability
 import PaymentFeature
 import ProductCatalog
 import ProductFeature
+import ProductShowroomFeature
 import StoreContext
 
 @MainActor
@@ -21,6 +22,7 @@ final class AppDependencies {
     private let clientRepository: any ClientRepository
     private let clientFeatureDependencies: ClientFeatureDependencies
     private let productRepository: any ProductRepository
+    private let searchProductsUseCase: SearchProductsUseCase
     private let cartStore: any CartStore
     private let favoriteStore: any FavoriteStore
     private let checkoutPreparationService: any CheckoutPreparationService
@@ -82,6 +84,7 @@ final class AppDependencies {
         }
 
         self.clientFeatureDependencies = ClientFeatureDependencies(repository: clientRepository)
+        self.searchProductsUseCase = SearchProductsUseCase(repository: productRepository)
     }
 
     func makeLoginViewModel() -> LoginViewModel {
@@ -101,7 +104,11 @@ final class AppDependencies {
     }
 
     func makeProductListViewModel() -> ProductListViewModel {
-        ProductListViewModel(repository: productRepository)
+        ProductListViewModel(searchProductsUseCase: searchProductsUseCase)
+    }
+
+    func makeProductShowroomViewModel() -> ProductShowroomViewModel {
+        ProductShowroomViewModel(searchProductsUseCase: searchProductsUseCase)
     }
 
     func makeCartViewModel() -> CartViewModel {

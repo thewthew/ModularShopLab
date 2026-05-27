@@ -19,6 +19,7 @@
 		B7E64F1D0F1D44F79A5F4FAE /* StoreContext in Frameworks */ = {isa = PBXBuildFile; productRef = 4BB6A1B03C704F889AFD542A /* StoreContext */; };
 		C3DE9F188C9A408CBA174E96 /* ProductFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 304D30663E864AC58A5445F6 /* ProductFeature */; };
 		ECE82E0B29C8414EBC98F898 /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 84CC0730654F40109A7E4BD8 /* AuthFeature */; };
+		FEA7100A9C9A4B8BA17C6201 /* ProductShowroomFeature in Frameworks */ = {isa = PBXBuildFile; productRef = FEA7100A9C9A4B8BA17C6202 /* ProductShowroomFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 				B7E64F1D0F1D44F79A5F4FAE /* StoreContext in Frameworks */,
 				A24E83BC5F9149B7B8F2E194 /* Observability in Frameworks */,
 				AB7C2D9E0F114A53A7B8C901 /* ProductCatalog in Frameworks */,
+				FEA7100A9C9A4B8BA17C6201 /* ProductShowroomFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +106,7 @@
 				4BB6A1B03C704F889AFD542A /* StoreContext */,
 				C4DA16744E4D4C0E8D3E940C /* Observability */,
 				AB7C2D9E0F114A53A7B8C902 /* ProductCatalog */,
+				FEA7100A9C9A4B8BA17C6202 /* ProductShowroomFeature */,
 			);
 			productName = ModularShopLab;
 			productReference = 408C90C92FC2305100EF1DA3 /* ModularShopLab.app */;
@@ -147,6 +150,7 @@
 				63FB05C92183451E8D24CC45 /* XCLocalSwiftPackageReference "Core/StoreContext" */,
 				FF1873B508E14D7289B24F3C /* XCLocalSwiftPackageReference "Core/Observability" */,
 				AB7C2D9E0F114A53A7B8C900 /* XCLocalSwiftPackageReference "Core/ProductCatalog" */,
+				FEA7100A9C9A4B8BA17C6200 /* XCLocalSwiftPackageReference "Features/ProductShowroomFeature" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 408C90CA2FC2305100EF1DA3 /* Products */;
@@ -438,6 +442,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Core/Observability;
 		};
+		FEA7100A9C9A4B8BA17C6200 /* XCLocalSwiftPackageReference "Features/ProductShowroomFeature" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Features/ProductShowroomFeature;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -500,6 +508,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBB8F50E743E4601B448C8C1 /* XCLocalSwiftPackageReference "Features/FavoritesFeature" */;
 			productName = FavoritesFeature;
+		};
+		FEA7100A9C9A4B8BA17C6202 /* ProductShowroomFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FEA7100A9C9A4B8BA17C6200 /* XCLocalSwiftPackageReference "Features/ProductShowroomFeature" */;
+			productName = ProductShowroomFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

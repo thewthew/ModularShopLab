@@ -8,6 +8,7 @@ import Observability
 import PaymentFeature
 import ProductCatalog
 import ProductFeature
+import ProductShowroomFeature
 import SwiftUI
 
 struct AppRootView: View {
@@ -61,12 +62,18 @@ struct AppRootView: View {
                     storeName: storeContext.storeName,
                     storeCode: storeContext.storeCode,
                     selectedItem: $selectedSidebarItem,
-                    productListViewModel: dependencies.makeProductListViewModel(),
+                    productShowroomViewModel: dependencies.makeProductShowroomViewModel(),
                     favoritesViewModel: favoritesViewModel,
                     clientCoordinator: clientTabCoordinator,
                     selectedClientName: selectedClient?.displayName,
                     onClientSelected: { client in
                         selectClient(client, message: "Client selected for iPad consultation.")
+                    },
+                    onRequestClientSelection: {
+                        selectedSidebarItem = .clients
+                    },
+                    onShareShowroomSelection: { products in
+                        logShowroomSelection(products)
                     },
                     onOpenTips: {
                         openTips()
@@ -203,6 +210,23 @@ struct AppRootView: View {
                     level: .info,
                     message: "Language learning tips webview presented.",
                     metadata: ["url": url.absoluteString]
+                )
+            )
+        }
+    }
+
+    private func logShowroomSelection(_ products: [Product]) {
+        Task {
+            await dependencies.log(
+                LogEvent(
+                    name: "showroom_selection_shared",
+                    level: .info,
+                    message: "iPad showroom selection shared.",
+                    metadata: [
+                        "has_client": selectedClient == nil ? "false" : "true",
+                        "products_count": "\(products.count)",
+                        "product_ids": products.map { "\($0.id)" }.joined(separator: ",")
+                    ]
                 )
             )
         }

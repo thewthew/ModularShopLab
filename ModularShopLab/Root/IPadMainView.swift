@@ -2,7 +2,8 @@ import ClientFeature
 import FavoritesFeature
 import FeatureFlags
 import HomeFeature
-import ProductFeature
+import ProductCatalog
+import ProductShowroomFeature
 import SwiftUI
 
 struct IPadMainView: View {
@@ -12,11 +13,13 @@ struct IPadMainView: View {
     let storeName: String
     let storeCode: String
     @Binding var selectedItem: AppSidebarItem
-    let productListViewModel: ProductListViewModel
+    let productShowroomViewModel: ProductShowroomViewModel
     let favoritesViewModel: FavoritesViewModel
     let clientCoordinator: ClientFlowCoordinator
     let selectedClientName: String?
     let onClientSelected: @MainActor @Sendable (Client) -> Void
+    let onRequestClientSelection: @MainActor @Sendable () -> Void
+    let onShareShowroomSelection: @MainActor @Sendable ([Product]) -> Void
     let onOpenTips: @MainActor @Sendable () -> Void
     let onLogout: @MainActor @Sendable () -> Void
 
@@ -61,22 +64,11 @@ struct IPadMainView: View {
                 onLogout: onLogout
             )
         case .products:
-            ProductListView(
-                viewModel: productListViewModel,
+            ProductShowroomView(
+                viewModel: productShowroomViewModel,
                 selectedClientName: selectedClientName,
-                onSelectClient: capabilities.allows(.clientManagement) ? { @MainActor @Sendable in
-                    selectedItem = .clients
-                } : nil,
-                allowsSearch: capabilities.allows(.productSearch),
-                allowsFavorites: capabilities.allows(.favorites),
-                isFavorite: { product in
-                    favoritesViewModel.isFavorite(product: product)
-                },
-                onToggleFavorite: { product in
-                    Task {
-                        await favoritesViewModel.toggle(product: product)
-                    }
-                }
+                onSelectClient: onRequestClientSelection,
+                onShareSelection: onShareShowroomSelection
             )
         case .favorites:
             if capabilities.allows(.favorites) {
