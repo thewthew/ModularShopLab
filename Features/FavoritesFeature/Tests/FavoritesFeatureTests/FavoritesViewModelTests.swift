@@ -1,4 +1,4 @@
-import ProductFeature
+import ProductCatalog
 import Testing
 @testable import FavoritesFeature
 

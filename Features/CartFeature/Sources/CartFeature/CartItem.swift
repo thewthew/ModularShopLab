@@ -1,5 +1,5 @@
 import Foundation
-import ProductFeature
+import ProductCatalog
 
 public struct CartItem: Identifiable, Equatable, Sendable {
     public let id: Int

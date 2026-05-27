@@ -1,5 +1,5 @@
 import DesignSystem
-import ProductFeature
+import ProductCatalog
 import SwiftUI
 
 public struct CartView: View {

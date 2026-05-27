@@ -1,6 +1,6 @@
+import ProductCatalog
 import Testing
 @testable import CartFeature
-import ProductFeature
 
 @MainActor
 @Test

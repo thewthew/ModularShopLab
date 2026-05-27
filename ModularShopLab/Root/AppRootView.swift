@@ -6,6 +6,7 @@ import FavoritesFeature
 import HomeFeature
 import Observability
 import PaymentFeature
+import ProductCatalog
 import ProductFeature
 import SwiftUI
 

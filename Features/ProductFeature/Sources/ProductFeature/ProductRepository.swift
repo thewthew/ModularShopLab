@@ -1,10 +1,6 @@
 import Foundation
 import Networking
-
-public protocol ProductRepository: Sendable {
-    func products() async throws -> [Product]
-    func searchProducts(query: String) async throws -> [Product]
-}
+import ProductCatalog
 
 public struct RemoteProductRepository: ProductRepository {
     private let apiClient: any APIClient

@@ -3,6 +3,7 @@ import ClientFeature
 import FavoritesFeature
 import FeatureFlags
 import HomeFeature
+import ProductCatalog
 import ProductFeature
 import SwiftUI
 

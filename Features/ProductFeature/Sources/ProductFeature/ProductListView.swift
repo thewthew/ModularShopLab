@@ -1,4 +1,5 @@
 import DesignSystem
+import ProductCatalog
 import SwiftUI
 
 public struct ProductListView: View {

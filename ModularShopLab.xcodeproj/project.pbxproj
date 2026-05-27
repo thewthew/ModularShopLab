@@ -15,6 +15,7 @@
 		75F51E8EFEB8453AB99839C8 /* HomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = A80F7EF34D314767BBD0F3B7 /* HomeFeature */; };
 		98844FA016464CF3A5DA47DF /* PaymentFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 051C0091FE24483089F16539 /* PaymentFeature */; };
 		A24E83BC5F9149B7B8F2E194 /* Observability in Frameworks */ = {isa = PBXBuildFile; productRef = C4DA16744E4D4C0E8D3E940C /* Observability */; };
+		AB7C2D9E0F114A53A7B8C901 /* ProductCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = AB7C2D9E0F114A53A7B8C902 /* ProductCatalog */; };
 		B7E64F1D0F1D44F79A5F4FAE /* StoreContext in Frameworks */ = {isa = PBXBuildFile; productRef = 4BB6A1B03C704F889AFD542A /* StoreContext */; };
 		C3DE9F188C9A408CBA174E96 /* ProductFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 304D30663E864AC58A5445F6 /* ProductFeature */; };
 		ECE82E0B29C8414EBC98F898 /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 84CC0730654F40109A7E4BD8 /* AuthFeature */; };
@@ -48,6 +49,7 @@
 				6A7D830E7C5C47A9B2B32EA1 /* FeatureFlags in Frameworks */,
 				B7E64F1D0F1D44F79A5F4FAE /* StoreContext in Frameworks */,
 				A24E83BC5F9149B7B8F2E194 /* Observability in Frameworks */,
+				AB7C2D9E0F114A53A7B8C901 /* ProductCatalog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +103,7 @@
 				5F2D287B8A684581B8E4B8F5 /* FeatureFlags */,
 				4BB6A1B03C704F889AFD542A /* StoreContext */,
 				C4DA16744E4D4C0E8D3E940C /* Observability */,
+				AB7C2D9E0F114A53A7B8C902 /* ProductCatalog */,
 			);
 			productName = ModularShopLab;
 			productReference = 408C90C92FC2305100EF1DA3 /* ModularShopLab.app */;
@@ -143,6 +146,7 @@
 				135A52799ACF49CDBBB0797E /* XCLocalSwiftPackageReference "Core/FeatureFlags" */,
 				63FB05C92183451E8D24CC45 /* XCLocalSwiftPackageReference "Core/StoreContext" */,
 				FF1873B508E14D7289B24F3C /* XCLocalSwiftPackageReference "Core/Observability" */,
+				AB7C2D9E0F114A53A7B8C900 /* XCLocalSwiftPackageReference "Core/ProductCatalog" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 408C90CA2FC2305100EF1DA3 /* Products */;
@@ -414,6 +418,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Features/CartFeature;
 		};
+		AB7C2D9E0F114A53A7B8C900 /* XCLocalSwiftPackageReference "Core/ProductCatalog" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Core/ProductCatalog;
+		};
 		C3AE204E83D14E76A3CE6E54 /* XCLocalSwiftPackageReference "Features/ClientFeature" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Features/ClientFeature;
@@ -472,6 +480,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EFD4026920814F0AB8B7C238 /* XCLocalSwiftPackageReference "Features/HomeFeature" */;
 			productName = HomeFeature;
+		};
+		AB7C2D9E0F114A53A7B8C902 /* ProductCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB7C2D9E0F114A53A7B8C900 /* XCLocalSwiftPackageReference "Core/ProductCatalog" */;
+			productName = ProductCatalog;
 		};
 		C4DA16744E4D4C0E8D3E940C /* Observability */ = {
 			isa = XCSwiftPackageProductDependency;

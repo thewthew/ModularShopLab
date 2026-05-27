@@ -1,4 +1,4 @@
-import ProductFeature
+import ProductCatalog
 
 public protocol CartStore: Sendable {
     func items() async -> [CartItem]

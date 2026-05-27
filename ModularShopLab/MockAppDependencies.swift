@@ -3,6 +3,7 @@ import ClientFeature
 import FeatureFlags
 import Foundation
 import PaymentFeature
+import ProductCatalog
 import ProductFeature
 import StoreContext
 

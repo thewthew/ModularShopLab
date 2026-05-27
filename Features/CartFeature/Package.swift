@@ -14,14 +14,14 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../../Core/DesignSystem"),
-        .package(path: "../ProductFeature")
+        .package(path: "../../Core/ProductCatalog")
     ],
     targets: [
         .target(
             name: "CartFeature",
             dependencies: [
                 "DesignSystem",
-                "ProductFeature"
+                "ProductCatalog"
             ],
             resources: [
                 .process("Resources")
@@ -32,7 +32,10 @@ let package = Package(
         ),
         .testTarget(
             name: "CartFeatureTests",
-            dependencies: ["CartFeature"]
+            dependencies: [
+                "CartFeature",
+                "ProductCatalog"
+            ]
         )
     ],
     swiftLanguageModes: [.v6]

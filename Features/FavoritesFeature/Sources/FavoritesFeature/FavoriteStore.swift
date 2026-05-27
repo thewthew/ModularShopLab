@@ -1,4 +1,4 @@
-import ProductFeature
+import ProductCatalog
 
 public protocol FavoriteStore: Sendable {
     func products() async -> [Product]

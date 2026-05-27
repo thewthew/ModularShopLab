@@ -14,14 +14,14 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../../Core/DesignSystem"),
-        .package(path: "../ProductFeature")
+        .package(path: "../../Core/ProductCatalog")
     ],
     targets: [
         .target(
             name: "FavoritesFeature",
             dependencies: [
                 "DesignSystem",
-                "ProductFeature"
+                "ProductCatalog"
             ],
             resources: [
                 .process("Resources")
@@ -32,7 +32,10 @@ let package = Package(
         ),
         .testTarget(
             name: "FavoritesFeatureTests",
-            dependencies: ["FavoritesFeature"]
+            dependencies: [
+                "FavoritesFeature",
+                "ProductCatalog"
+            ]
         )
     ],
     swiftLanguageModes: [.v6]
