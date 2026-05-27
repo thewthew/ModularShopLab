@@ -8,6 +8,7 @@ import Networking
 import Observation
 import Observability
 import PaymentFeature
+import ProductCatalog
 import ProductFeature
 import StoreContext
 
@@ -18,6 +19,7 @@ final class AppDependencies {
     private let apiClient: any APIClient
     private let authRepository: any AuthRepository
     private let clientRepository: any ClientRepository
+    private let clientFeatureDependencies: ClientFeatureDependencies
     private let productRepository: any ProductRepository
     private let cartStore: any CartStore
     private let favoriteStore: any FavoriteStore
@@ -78,6 +80,8 @@ final class AppDependencies {
             self.productRepository = MockProductRepository()
             self.checkoutPreparationService = MockCheckoutPreparationService()
         }
+
+        self.clientFeatureDependencies = ClientFeatureDependencies(repository: clientRepository)
     }
 
     func makeLoginViewModel() -> LoginViewModel {
@@ -93,7 +97,7 @@ final class AppDependencies {
     }
 
     func makeClientFlowCoordinator() -> ClientFlowCoordinator {
-        ClientFlowCoordinator(repository: clientRepository)
+        ClientFlowCoordinator(dependencies: clientFeatureDependencies)
     }
 
     func makeProductListViewModel() -> ProductListViewModel {

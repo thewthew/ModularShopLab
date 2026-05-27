@@ -14,11 +14,15 @@ public final class ClientFlowCoordinator: Identifiable {
     public var path: [ClientFlowRoute] = []
 
     public let searchViewModel: ClientSearchViewModel
-    private let repository: any ClientRepository
+    private let dependencies: ClientFeatureDependencies
 
-    public init(repository: any ClientRepository) {
-        self.repository = repository
-        self.searchViewModel = ClientSearchViewModel(repository: repository)
+    public init(dependencies: ClientFeatureDependencies) {
+        self.dependencies = dependencies
+        self.searchViewModel = dependencies.makeSearchViewModel()
+    }
+
+    public convenience init(repository: any ClientRepository) {
+        self.init(dependencies: ClientFeatureDependencies(repository: repository))
     }
 
     public func showCreate() {
@@ -34,11 +38,11 @@ public final class ClientFlowCoordinator: Identifiable {
     }
 
     public func makeCreateViewModel() -> ClientFormViewModel {
-        ClientFormViewModel(mode: .create, saveClientUseCase: SaveClientUseCase(repository: repository))
+        dependencies.makeCreateFormViewModel()
     }
 
     public func makeUpdateViewModel(for client: Client) -> ClientFormViewModel {
-        ClientFormViewModel(mode: .update(client), saveClientUseCase: SaveClientUseCase(repository: repository))
+        dependencies.makeUpdateFormViewModel(for: client)
     }
 
     public func cancel() {
