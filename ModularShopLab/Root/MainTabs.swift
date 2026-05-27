@@ -19,7 +19,9 @@ struct MainTabs: View {
     let favoritesViewModel: FavoritesViewModel
     let clientTabCoordinator: ClientFlowCoordinator
     let selectedClientName: String?
+    let recentClients: [HomeRecentClientState]
     let onClientSelected: @MainActor @Sendable (Client) -> Void
+    let onRecentClientSelected: @MainActor @Sendable (HomeRecentClientState) -> Void
     let onRequestClientSelection: @MainActor @Sendable () -> Void
     let onOpenTips: @MainActor @Sendable () -> Void
     let onLogout: @MainActor @Sendable () -> Void
@@ -33,11 +35,13 @@ struct MainTabs: View {
                 storeName: storeName,
                 storeCode: storeCode,
                 selectedClientName: selectedClientName,
+                recentClients: recentClients,
                 canStartSale: capabilities.allows(.startSale),
                 onStartSale: {
                     selectedTab = .products
                 },
                 onCreateClient: onRequestClientSelection,
+                onRecentClientSelected: onRecentClientSelected,
                 onOpenTips: onOpenTips,
                 onLogout: onLogout
             )

@@ -21,6 +21,7 @@ struct AppRootView: View {
     @State private var clientTabCoordinator: ClientFlowCoordinator
     @State private var presentedClientFlow: ClientFlowCoordinator?
     @State private var presentedTipsRoute: ExternalWebRoute?
+    @State private var recentHomeClients: [HomeRecentClientState] = []
     @State private var tapToPayViewModel: TapToPayViewModel
     @State private var isCheckoutPresented = false
     @State private var selectedTab = AppTab.home
@@ -66,8 +67,12 @@ struct AppRootView: View {
                     favoritesViewModel: favoritesViewModel,
                     clientCoordinator: clientTabCoordinator,
                     selectedClientName: selectedClient?.displayName,
+                    recentClients: recentHomeClients,
                     onClientSelected: { client in
                         selectClient(client, message: "Client selected for iPad consultation.")
+                    },
+                    onRecentClientSelected: { recentClient in
+                        selectRecentClient(recentClient, message: "Recent client selected from iPad home.")
                     },
                     onRequestClientSelection: {
                         selectedSidebarItem = .clients
@@ -95,8 +100,12 @@ struct AppRootView: View {
                     favoritesViewModel: favoritesViewModel,
                     clientTabCoordinator: clientTabCoordinator,
                     selectedClientName: selectedClient?.displayName,
+                    recentClients: recentHomeClients,
                     onClientSelected: { client in
                         selectClient(client, message: "Client selected for sale.")
+                    },
+                    onRecentClientSelected: { recentClient in
+                        selectRecentClient(recentClient, message: "Recent client selected from home.")
                     },
                     onRequestClientSelection: {
                         presentClientFlow()
@@ -111,6 +120,19 @@ struct AppRootView: View {
                         presentCheckout(items: items, total: total)
                     }
                 )
+            }
+        }
+        .task {
+            refreshRecentHomeClients()
+        }
+        .onChange(of: selectedTab) { _, newValue in
+            if newValue == .home {
+                refreshRecentHomeClients()
+            }
+        }
+        .onChange(of: selectedSidebarItem) { _, newValue in
+            if newValue == .home {
+                refreshRecentHomeClients()
             }
         }
         .sheet(isPresented: $isCheckoutPresented) {
@@ -170,6 +192,8 @@ struct AppRootView: View {
         eventName: String = "client_selected"
     ) {
         selectedClient = client
+        dependencies.recordRecentClient(client)
+        refreshRecentHomeClients()
         Task {
             await dependencies.log(
                 LogEvent(
@@ -180,6 +204,29 @@ struct AppRootView: View {
                 )
             )
         }
+    }
+
+    private func selectRecentClient(
+        _ recentClient: HomeRecentClientState,
+        message: String
+    ) {
+        guard let client = dependencies.recentClients(limit: 20).first(where: { $0.id == recentClient.id }) else {
+            return
+        }
+
+        selectClient(client, message: message)
+    }
+
+    private func refreshRecentHomeClients() {
+        recentHomeClients = dependencies
+            .recentClients(limit: 3)
+            .map { client in
+                HomeRecentClientState(
+                    id: client.id,
+                    displayName: client.displayName,
+                    email: client.email
+                )
+            }
     }
 
     private func presentClientFlow() {

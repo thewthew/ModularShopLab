@@ -17,6 +17,23 @@ func clientSearchViewModelSearchesClients() async {
 
 @MainActor
 @Test
+func clientSearchViewModelRecordsSearchedClients() async {
+    let client = Client(id: 4, firstName: "Maya", lastName: "Stone", email: "maya@example.com", country: .germany)
+    let recentClientStore = SpyRecentClientStore()
+    let viewModel = ClientSearchViewModel(
+        repository: StubClientRepository(searchResult: [client]),
+        recentClientStore: recentClientStore
+    )
+
+    viewModel.searchQuery = "maya"
+    await viewModel.search()
+
+    #expect(recentClientStore.recordedClients == [client])
+    #expect(viewModel.recentClientRows == [ClientRowState(client: client)])
+}
+
+@MainActor
+@Test
 func clientSearchViewModelHandlesSearchError() async {
     let repository = StubClientRepository(searchError: TestError.failed)
     let viewModel = ClientSearchViewModel(repository: repository)
@@ -44,6 +61,28 @@ func clientFormViewModelCreatesClient() async {
 
     #expect(createdClient == client)
     #expect(viewModel.errorMessage == nil)
+}
+
+@MainActor
+@Test
+func clientFormViewModelRecordsCreatedClient() async {
+    let client = Client(id: 5, firstName: "Lea", lastName: "Moreau", email: "lea@example.com", country: .france)
+    let recentClientStore = SpyRecentClientStore()
+    let viewModel = ClientFormViewModel(
+        mode: .create,
+        saveClientUseCase: SaveClientUseCase(
+            repository: StubClientRepository(createdClient: client),
+            recentClientStore: recentClientStore
+        )
+    )
+
+    viewModel.firstName = "Lea"
+    viewModel.lastName = "Moreau"
+    viewModel.email = "lea@example.com"
+
+    _ = await viewModel.save()
+
+    #expect(recentClientStore.recordedClients == [client])
 }
 
 @MainActor
@@ -94,4 +133,21 @@ private struct StubClientRepository: ClientRepository {
 
 private enum TestError: Error {
     case failed
+}
+
+@MainActor
+private final class SpyRecentClientStore: RecentClientStore {
+    private(set) var recordedClients: [Client] = []
+
+    func recentClients(limit: Int) throws -> [Client] {
+        Array(recordedClients.suffix(limit).reversed())
+    }
+
+    func record(_ client: Client) throws {
+        recordedClients.append(client)
+    }
+
+    func record(_ clients: [Client]) throws {
+        recordedClients.append(contentsOf: clients)
+    }
 }

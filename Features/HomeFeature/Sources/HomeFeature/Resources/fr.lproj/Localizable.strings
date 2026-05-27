@@ -6,6 +6,7 @@
 "home.startSale" = "Démarrer la vente";
 "home.client" = "Client";
 "home.createClient" = "Créer un client";
+"home.recentClients" = "Clients récents";
 "home.tips" = "Conseils";
 "home.learnLanguage" = "Apprendre une nouvelle langue";
 "home.tipsDescription" = "Ouvre un guide web court avec des conseils pratiques pour apprendre une langue.";

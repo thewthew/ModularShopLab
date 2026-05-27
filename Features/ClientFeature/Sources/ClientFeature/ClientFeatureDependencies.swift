@@ -1,15 +1,26 @@
 public struct ClientFeatureDependencies: Sendable {
     private let repository: any ClientRepository
+    private let recentClientStore: any RecentClientStore
     private let saveClientUseCase: SaveClientUseCase
 
-    public init(repository: any ClientRepository) {
+    public init(
+        repository: any ClientRepository,
+        recentClientStore: any RecentClientStore = NoRecentClientStore()
+    ) {
         self.repository = repository
-        self.saveClientUseCase = SaveClientUseCase(repository: repository)
+        self.recentClientStore = recentClientStore
+        self.saveClientUseCase = SaveClientUseCase(
+            repository: repository,
+            recentClientStore: recentClientStore
+        )
     }
 
     @MainActor
     public func makeSearchViewModel() -> ClientSearchViewModel {
-        ClientSearchViewModel(repository: repository)
+        ClientSearchViewModel(
+            repository: repository,
+            recentClientStore: recentClientStore
+        )
     }
 
     @MainActor

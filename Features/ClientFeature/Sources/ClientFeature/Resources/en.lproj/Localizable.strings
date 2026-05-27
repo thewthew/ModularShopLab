@@ -16,6 +16,7 @@
 "client.createClient" = "Create client";
 "client.findClient" = "Find client";
 "client.results" = "Results";
+"client.recentClients" = "Recent clients";
 "client.noClientsFound" = "No clients found";
 "client.navigationTitle" = "Clients";
 "client.close" = "Close";

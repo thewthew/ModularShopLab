@@ -14,6 +14,7 @@ enum AppExperience: Sendable {
         }
     }
 
+    @MainActor
     static var current: AppExperience {
         #if os(iOS)
         UIDevice.current.userInterfaceIdiom == .pad ? .iPad : .iPhone

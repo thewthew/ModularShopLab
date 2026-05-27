@@ -58,11 +58,13 @@ public struct ClientFlowView: View {
                     )
                 case .create:
                     ClientFormView(viewModel: coordinator.makeCreateViewModel()) { client in
+                        coordinator.reloadRecentClients()
                         onClientSelected(client)
                         coordinator.showDetail(for: client)
                     }
                 case let .update(client):
                     ClientFormView(viewModel: coordinator.makeUpdateViewModel(for: client)) { updatedClient in
+                        coordinator.reloadRecentClients()
                         onClientSelected(updatedClient)
                         coordinator.path.removeAll { $0 == .detail(client) || $0 == .update(client) }
                         coordinator.showDetail(for: updatedClient)

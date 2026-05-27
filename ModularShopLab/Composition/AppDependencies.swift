@@ -12,6 +12,7 @@ import ProductCatalog
 import ProductFeature
 import ProductShowroomFeature
 import StoreContext
+import SwiftData
 
 @MainActor
 @Observable
@@ -20,6 +21,7 @@ final class AppDependencies {
     private let apiClient: any APIClient
     private let authRepository: any AuthRepository
     private let clientRepository: any ClientRepository
+    private let recentClientStore: any RecentClientStore
     private let clientFeatureDependencies: ClientFeatureDependencies
     private let productRepository: any ProductRepository
     private let searchProductsUseCase: SearchProductsUseCase
@@ -38,6 +40,7 @@ final class AppDependencies {
 
         let apiClient = URLSessionAPIClient()
         let localFeatureFlagRepository = JSONFeatureFlagRepository(dataProvider: Self.loadBundledFeatureFlagData)
+        let recentClientStore = Self.makeRecentClientStore(configuration: configuration)
         let featureFlagRepository: any FeatureFlagRepository
         let storeContextRepository: any StoreContextRepository
 
@@ -58,6 +61,7 @@ final class AppDependencies {
         }
 
         self.apiClient = apiClient
+        self.recentClientStore = recentClientStore
         self.cartStore = InMemoryCartStore()
         self.favoriteStore = InMemoryFavoriteStore()
         self.paymentService = AdyenTapToPayService()
@@ -83,7 +87,10 @@ final class AppDependencies {
             self.checkoutPreparationService = MockCheckoutPreparationService()
         }
 
-        self.clientFeatureDependencies = ClientFeatureDependencies(repository: clientRepository)
+        self.clientFeatureDependencies = ClientFeatureDependencies(
+            repository: clientRepository,
+            recentClientStore: recentClientStore
+        )
         self.searchProductsUseCase = SearchProductsUseCase(repository: productRepository)
     }
 
@@ -101,6 +108,14 @@ final class AppDependencies {
 
     func makeClientFlowCoordinator() -> ClientFlowCoordinator {
         ClientFlowCoordinator(dependencies: clientFeatureDependencies)
+    }
+
+    func recentClients(limit: Int = 5) -> [Client] {
+        (try? recentClientStore.recentClients(limit: limit)) ?? []
+    }
+
+    func recordRecentClient(_ client: Client) {
+        try? recentClientStore.record(client)
     }
 
     func makeProductListViewModel() -> ProductListViewModel {
@@ -230,6 +245,20 @@ final class AppDependencies {
             message: event.message,
             metadata: metadata
         )
+    }
+
+    private static func makeRecentClientStore(configuration: AppConfiguration) -> any RecentClientStore {
+        do {
+            let schema = Schema([RecentClientRecord.self])
+            let modelConfiguration = ModelConfiguration(
+                schema: schema,
+                isStoredInMemoryOnly: configuration == .mock
+            )
+            let container = try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return SwiftDataRecentClientStore(modelContext: ModelContext(container))
+        } catch {
+            return NoRecentClientStore()
+        }
     }
 }
 

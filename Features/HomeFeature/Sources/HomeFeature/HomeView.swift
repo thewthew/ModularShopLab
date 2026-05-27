@@ -7,9 +7,11 @@ public struct HomeView: View {
     private let storeName: String
     private let storeCode: String
     private let selectedClientName: String?
+    private let recentClients: [HomeRecentClientState]
     private let canStartSale: Bool
     private let onStartSale: @MainActor @Sendable () -> Void
     private let onCreateClient: @MainActor @Sendable () -> Void
+    private let onRecentClientSelected: @MainActor @Sendable (HomeRecentClientState) -> Void
     private let onOpenTips: @MainActor @Sendable () -> Void
     private let onLogout: @MainActor @Sendable () -> Void
 
@@ -19,9 +21,11 @@ public struct HomeView: View {
         storeName: String = "",
         storeCode: String = "",
         selectedClientName: String? = nil,
+        recentClients: [HomeRecentClientState] = [],
         canStartSale: Bool,
         onStartSale: @escaping @MainActor @Sendable () -> Void,
         onCreateClient: @escaping @MainActor @Sendable () -> Void,
+        onRecentClientSelected: @escaping @MainActor @Sendable (HomeRecentClientState) -> Void = { _ in },
         onOpenTips: @escaping @MainActor @Sendable () -> Void,
         onLogout: @escaping @MainActor @Sendable () -> Void
     ) {
@@ -30,9 +34,11 @@ public struct HomeView: View {
         self.storeName = storeName
         self.storeCode = storeCode
         self.selectedClientName = selectedClientName
+        self.recentClients = recentClients
         self.canStartSale = canStartSale
         self.onStartSale = onStartSale
         self.onCreateClient = onCreateClient
+        self.onRecentClientSelected = onRecentClientSelected
         self.onOpenTips = onOpenTips
         self.onLogout = onLogout
     }
@@ -88,6 +94,26 @@ public struct HomeView: View {
                         onCreateClient()
                     } label: {
                         Label(L10n.string("home.createClient"), systemImage: "person.badge.plus")
+                    }
+                }
+
+                if !recentClients.isEmpty {
+                    Section(L10n.string("home.recentClients")) {
+                        ForEach(recentClients) { client in
+                            Button {
+                                onRecentClientSelected(client)
+                            } label: {
+                                VStack(alignment: .leading, spacing: ShopSpacing.xSmall) {
+                                    Text(client.displayName)
+                                        .font(.headline)
+                                    Text(client.email)
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                                .accessibilityElement(children: .combine)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
 

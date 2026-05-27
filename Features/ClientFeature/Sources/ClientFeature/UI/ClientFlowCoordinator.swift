@@ -45,6 +45,10 @@ public final class ClientFlowCoordinator: Identifiable {
         dependencies.makeUpdateFormViewModel(for: client)
     }
 
+    public func reloadRecentClients() {
+        searchViewModel.loadRecentClients()
+    }
+
     public func cancel() {
         searchViewModel.cancel()
     }

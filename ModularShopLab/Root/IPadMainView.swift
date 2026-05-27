@@ -17,7 +17,9 @@ struct IPadMainView: View {
     let favoritesViewModel: FavoritesViewModel
     let clientCoordinator: ClientFlowCoordinator
     let selectedClientName: String?
+    let recentClients: [HomeRecentClientState]
     let onClientSelected: @MainActor @Sendable (Client) -> Void
+    let onRecentClientSelected: @MainActor @Sendable (HomeRecentClientState) -> Void
     let onRequestClientSelection: @MainActor @Sendable () -> Void
     let onShareShowroomSelection: @MainActor @Sendable ([Product]) -> Void
     let onOpenTips: @MainActor @Sendable () -> Void
@@ -53,6 +55,7 @@ struct IPadMainView: View {
                 storeName: storeName,
                 storeCode: storeCode,
                 selectedClientName: selectedClientName,
+                recentClients: recentClients,
                 canStartSale: capabilities.allows(.startSale),
                 onStartSale: {
                     selectedItem = .products
@@ -60,6 +63,7 @@ struct IPadMainView: View {
                 onCreateClient: {
                     selectedItem = .clients
                 },
+                onRecentClientSelected: onRecentClientSelected,
                 onOpenTips: onOpenTips,
                 onLogout: onLogout
             )

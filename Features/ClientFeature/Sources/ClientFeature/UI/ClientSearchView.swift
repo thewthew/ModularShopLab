@@ -43,6 +43,21 @@ public struct ClientSearchView: View {
                 }
             }
 
+            if !viewModel.recentClientRows.isEmpty {
+                Section(L10n.string("client.recentClients")) {
+                    ForEach(viewModel.recentClientRows) { row in
+                        Button {
+                            if let client = viewModel.client(for: row) {
+                                onClientSelected(client)
+                            }
+                        } label: {
+                            ClientRow(state: row)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+
             Section(L10n.string("client.results")) {
                 if viewModel.clientRows.isEmpty {
                     Text(L10n.string("client.noClientsFound"))
@@ -62,6 +77,9 @@ public struct ClientSearchView: View {
             }
         }
         .navigationTitle(L10n.string("client.navigationTitle"))
+        .task {
+            viewModel.loadRecentClients()
+        }
         .onChange(of: viewModel.searchQuery) { _, newValue in
             if newValue.isEmpty {
                 viewModel.cancel()

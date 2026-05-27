@@ -29,9 +29,14 @@ public struct ClientFormInput: Equatable, Sendable {
 
 public struct SaveClientUseCase: Sendable {
     private let repository: any ClientRepository
+    private let recentClientStore: any RecentClientStore
 
-    public init(repository: any ClientRepository) {
+    public init(
+        repository: any ClientRepository,
+        recentClientStore: any RecentClientStore = NoRecentClientStore()
+    ) {
         self.repository = repository
+        self.recentClientStore = recentClientStore
     }
 
     public func execute(mode: SaveClientMode, input: ClientFormInput) async throws -> Client {
@@ -46,7 +51,7 @@ public struct SaveClientUseCase: Sendable {
 
         switch mode {
         case .create:
-            return try await repository.createClient(
+            let client = try await repository.createClient(
                 CreateClientRequest(
                     firstName: firstName,
                     lastName: lastName,
@@ -55,8 +60,10 @@ public struct SaveClientUseCase: Sendable {
                     country: input.country
                 )
             )
+            try await recentClientStore.record(client)
+            return client
         case let .update(client):
-            return try await repository.updateClient(
+            let updatedClient = try await repository.updateClient(
                 UpdateClientRequest(
                     id: client.id,
                     firstName: firstName,
@@ -66,6 +73,8 @@ public struct SaveClientUseCase: Sendable {
                     country: input.country
                 )
             )
+            try await recentClientStore.record(updatedClient)
+            return updatedClient
         }
     }
 }
